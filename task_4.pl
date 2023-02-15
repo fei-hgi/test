@@ -29,6 +29,9 @@ else
 
 my $seqnum = 0;
 
+my $basenum = 0;
+my $baseindex = 1;
+
 if($opt_s)
 {
     print "====> Couting the number of sequences.\n";
@@ -41,6 +44,31 @@ if($opt_s)
         }
     }
     print "No. of sequences: ".($seqnum/4)."\n";
+}
+elsif($opt_b)
+{
+    print "====> Couting the number of bases.\n";
+    while(<IN>)
+    {
+        chomp $_;
+        if($_ ne "")
+        {
+            if($baseindex == 2)
+            {
+                $basenum = $basenum + length($_);
+                $baseindex++;
+            }
+            elsif($baseindex == 4)
+            {
+                $baseindex = 1;
+            }
+            else
+            {
+                $baseindex++;
+            }
+        }
+    }
+    print "No. of bases: ".$basenum."\n";
 }
 else
 {
